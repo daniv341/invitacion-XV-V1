@@ -49,19 +49,19 @@
                         <!-- Confirmación -->
                         <a href="https://wa.me/5493886715770?text=Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV"
                             target="_blank" class="accion">
-                            <i class="fa-solid fa-check"></i>
+                            <img src="img/btn_ubicacion-removebg-preview.png" alt="Botón" />
                             <span>Confirmar<br>Presencia</span>
                         </a>
 
                         <!-- Ubicación -->
                         <a href="https://maps.google.com/?q=-26.816,-65.216" target="_blank" class="accion">
-                            <i class="fa-solid fa-location-dot"></i>
+                            <img src="img/btn_invitacion-removebg-preview.png" alt="Botón" />
                             <span>Ubicación</span>
                         </a>
 
                         <!-- Regalo -->
-                        <button type="button" class="accion" id="btnRegalo">
-                            <i class="fa-solid fa-gift"></i>
+                        <button type="button" class="accion" id="botonRegalo">
+                            <img src="img/btn_regalo-removebg-preview.png" alt="Botón" />
                             <span>Regalo</span>
                         </button>
 
@@ -85,78 +85,26 @@
 
     </div>
 
-    <div class="modal" id="modalRegalo" aria-hidden="true">
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="tituloRegalo">
-            <button class="modal-close" id="cerrarRegalo" aria-label="Cerrar">✕</button>
-
-            <h2 id="tituloRegalo">🎁 Regalo</h2>
-            <p>Si querés hacerme un regalito, podés transferir a:</p>
-
-            <div class="dato">
-                <span class="label">ALIAS</span>
-                <div class="fila">
-                    <code id="aliasTxt">TU.ALIAS.ACA</code>
-                    <button class="btn-copy" data-copy="aliasTxt">Copiar</button>
-                </div>
-            </div>
-
-            <div class="dato">
-                <span class="label">CVU</span>
-                <div class="fila">
-                    <code id="cvuTxt">0000000000000000000000</code>
-                    <button class="btn-copy" data-copy="cvuTxt">Copiar</button>
-                </div>
-            </div>
-
-            <p class="mini">Gracias por acompañarme 💛</p>
-        </div>
-    </div>
-
-    <script>
-        const btnRegalo = document.getElementById("btnRegalo");
-        const modal = document.getElementById("modalRegalo");
-        const cerrar = document.getElementById("cerrarRegalo");
-
-        function abrirModal() {
-            modal.classList.add("open");
-            modal.setAttribute("aria-hidden", "false");
-        }
-
-        function cerrarModal() {
-            modal.classList.remove("open");
-            modal.setAttribute("aria-hidden", "true");
-        }
-
-        btnRegalo.addEventListener("click", abrirModal);
-        cerrar.addEventListener("click", cerrarModal);
-
-        // cerrar clickeando fuera
-        modal.addEventListener("click", (e) => {
-            if (e.target === modal) cerrarModal();
+    <div id="panelPago" class="panel">
+        <h3>Datos de pago</h3>
+        <p><strong>Alias:</strong> mi.alias.ejemplo</p>
+        <p><strong>CVU:</strong> 000000</p>
+        <button id="cerrar">Cerrar</button>
+      </div>
+  
+      <script>
+        const btn = document.getElementById("botonRegalo");
+        const panel = document.getElementById("panelPago");
+        const cerrar = document.getElementById("cerrar");
+  
+        btn.addEventListener("click", () => {
+          panel.style.display = "block";
         });
-
-        // cerrar con ESC
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && modal.classList.contains("open")) cerrarModal();
+  
+        cerrar.addEventListener("click", () => {
+          panel.style.display = "none";
         });
-
-        // copiar alias / cvu
-        document.querySelectorAll(".btn-copy").forEach((btn) => {
-            btn.addEventListener("click", async () => {
-                const id = btn.dataset.copy;
-                const txt = document.getElementById(id).innerText.trim();
-                try {
-                    await navigator.clipboard.writeText(txt);
-                    const old = btn.innerText;
-                    btn.innerText = "Copiado ✓";
-                    setTimeout(() => (btn.innerText = old), 1200);
-                } catch {
-                    alert("No se pudo copiar. Copialo manualmente.");
-                }
-            });
-        });
-    </script>
-
+      </script>
 </body>
 
 </html>
