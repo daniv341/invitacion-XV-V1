@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <title>Document</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <section>
+            <div class="intro">
+                <div class="titulo">
+                    <!-- <h1>Luciana</h1> -->
+                    <p>Te invito a mis XV años</p>
+                </div>
+                <div class="descripcion">
+                    <!-- <p class="comp">En compañía de mis seres queridos </p> -->
+                    <div class="img-heart">
+                        <img src="/img/icons8-me-gusta-50.png" alt="">
+                    </div>
+
+                </div>
+
+                <div class="info-fecha">
+                    <div class="infoFecha">
+
+                        <h2 class="nombre">Luciana</h2>
+
+
+                        <div class="fecha">
+                            <p>SÁBADO</p>
+                            <h1>05</h1>
+                            <p>AGOSTO</p>
+                        </div>
+
+
+                    </div>
+
+                    <div class="acciones">
+                        <!-- Confirmación -->
+                        <a href="https://wa.me/5493886715770?text=Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV"
+                            target="_blank" class="accion">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Confirmar<br>Presencia</span>
+                        </a>
+
+                        <!-- Ubicación -->
+                        <a href="https://maps.google.com/?q=-26.816,-65.216" target="_blank" class="accion">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Ubicación</span>
+                        </a>
+
+                        <!-- Regalo -->
+                        <button type="button" class="accion" id="btnRegalo">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Regalo</span>
+                        </button>
+
+                    </div>
+
+                    <div class="frase">
+                        <p>LOS ESPERAMOS PARA CELEBRAR JUNTOS</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <div class="modal" id="modalRegalo" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="tituloRegalo">
+            <button class="modal-close" id="cerrarRegalo" aria-label="Cerrar">✕</button>
+
+            <h2 id="tituloRegalo">🎁 Regalo</h2>
+            <p>Si querés hacerme un regalito, podés transferir a:</p>
+
+            <div class="dato">
+                <span class="label">ALIAS</span>
+                <div class="fila">
+                    <code id="aliasTxt">TU.ALIAS.ACA</code>
+                    <button class="btn-copy" data-copy="aliasTxt">Copiar</button>
+                </div>
+            </div>
+
+            <div class="dato">
+                <span class="label">CVU</span>
+                <div class="fila">
+                    <code id="cvuTxt">0000000000000000000000</code>
+                    <button class="btn-copy" data-copy="cvuTxt">Copiar</button>
+                </div>
+            </div>
+
+            <p class="mini">Gracias por acompañarme 💛</p>
+        </div>
+    </div>
+
+    <script>
+        const btnRegalo = document.getElementById("btnRegalo");
+        const modal = document.getElementById("modalRegalo");
+        const cerrar = document.getElementById("cerrarRegalo");
+
+        function abrirModal() {
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+        }
+
+        function cerrarModal() {
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+        }
+
+        btnRegalo.addEventListener("click", abrirModal);
+        cerrar.addEventListener("click", cerrarModal);
+
+        // cerrar clickeando fuera
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+
+        // cerrar con ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("open")) cerrarModal();
+        });
+
+        // copiar alias / cvu
+        document.querySelectorAll(".btn-copy").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+                const id = btn.dataset.copy;
+                const txt = document.getElementById(id).innerText.trim();
+                try {
+                    await navigator.clipboard.writeText(txt);
+                    const old = btn.innerText;
+                    btn.innerText = "Copiado ✓";
+                    setTimeout(() => (btn.innerText = old), 1200);
+                } catch {
+                    alert("No se pudo copiar. Copialo manualmente.");
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
